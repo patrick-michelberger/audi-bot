@@ -1,4 +1,11 @@
 #!/usr/bin/env node
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+//if (env === 'development' || env === 'test' || env === 'production') {
+  // Register the Babel require hook
+  require('babel-core/register');
+//}
+
 var app = require('../app');
 
 app.set('port', process.env.PORT || 3000);

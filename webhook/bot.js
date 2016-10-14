@@ -106,10 +106,6 @@ const actions = {
     },
 };
 
-// setting up wit bot
-const Wit = require('node-wit').Wit;
-const client = new Wit(WIT_TOKEN, actions);
-
 // tablesurfer bot
 class Bot extends EventEmitter {
     constructor(opts) {
@@ -209,48 +205,6 @@ class Bot extends EventEmitter {
                         } else {
                             // don't know the command
                         }
-
-                        // lookup user with provider = facebook and id = sender.id
-                        User.findOne({
-                            messengerId: senderId
-                        }, (err, user) => {
-                            if (err) return res.end()
-
-                            // append user object to event
-                            event.user = user;
-
-                            if (!user) {
-                                event.state = "newUser";
-                                // create new user
-                            } else if (!user.email) {
-                                event.state = "askEmail";
-                                // add campusMail to user
-                                // create verify code
-                                // save user
-                                // send verify code message with resend button
-                            } else if (!user.verified) {
-                                event.state = "askVerifycode";
-
-                            } else if (!user.weekdays || user.weekdays.length === 0) {
-                                // send weekday buttons
-                                event.state = "askWeekdays";
-                            }
-
-                            // handle inbound messages
-                            if (event.message) {
-                                self._handleEvent('message', event);
-                            }
-
-                            // handle postbacks
-                            if (event.postback) {
-                                self._handleEvent('postback', event);
-                            }
-
-                            // handle message delivered
-                            if (event.delivery) {
-                                self._handleEvent('delivery', event);
-                            }
-                        });
                     }
                 });
             })
@@ -361,43 +315,6 @@ class Bot extends EventEmitter {
             return;
           }
           cb(null);
-        });
-    }
-
-    runWitActions(sessionId, msg) {
-        // Let's forward the message to the Wit.ai Bot Engine
-        // This will run all actions until our bot has nothing left to do
-        client.runActions(
-            sessionId, // the user's current session
-            msg, // the user's message
-            sessions[sessionId].context, // the user's current session state
-            (error, context) => {
-                if (error) {
-                    console.log('Oops! Got an error from Wit:', error);
-                } else {
-                    // Our bot did everything it has to do.
-                    // Now it's waiting for further messages to proceed.
-                    console.log('Waiting for futher messages.');
-
-                    // Based on the session state, you might want to reset the session.
-                    // This depends heavily on the business logic of your bot.
-                    // Example:
-                    // if (context['done']) {
-                    //   delete sessions[sessionId];
-                    // }
-
-                    // Updating the user's current session state
-                    sessions[sessionId].context = context;
-                }
-            }
-        );
-    }
-
-    askWit(message, cb) {
-        if (!cb) cb = Function.prototype
-        client.message(message, (error, data) => {
-            console.log("cb");
-            cb(error, data);
         });
     }
 }
