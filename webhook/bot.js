@@ -204,7 +204,7 @@ class Bot extends EventEmitter {
                             console.log("location: ", location);
 
                             request({
-                                url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + location.lat + ',' + location.long,
+                                url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + location.lat + ',' + location.long + '&key=AIzaSyAP9LtK43pDNnsUfs4AlOSeryHjpCTbZKw', 
                                 method: 'GET'
                             }, function(error, response, body) {
                                 if (error) {
