@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/user');
+var google = require('./routes/google');
 var webhookRoutes = require('./webhook');
 
 var app = express();
@@ -32,6 +33,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/google369a138b05773f86.html', google);
+
 app.use('/users', users);
 app.use('/webhook', webhookRoutes);
 
