@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/user');
-import webhookRoutes from './webhook';
+var webhookRoutes = require('./webhook');
 
 var app = express();
 

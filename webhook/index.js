@@ -1,10 +1,10 @@
 'use strict'
 
-import express from 'express';
-import request from 'request';
-import _ from 'lodash';
+const express = require('express');
+const request = require('request');
+const _ = require('lodash');
 
-import config from '../config/environment';
+const config = require('../config/environment');
 
 const router = express.Router();
 const Bot = require('./bot.js');
@@ -30,4 +30,4 @@ bot.on('postback', (payload, reply) => {
 
 router.all('/', bot.middleware());
 
-export default router;
+module.exports = router;
