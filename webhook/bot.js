@@ -204,7 +204,7 @@ class Bot extends EventEmitter {
                             console.log("location: ", location);
 
                             request({
-                                url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + location.lat + '&lon=' + location.long,
+                                url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + location.lat + ',' + location.long,
                                 method: 'GET'
                             }, function(error, response, body) {
                                 if (error) {
