@@ -10,7 +10,9 @@ const FACEBOOK_ACCESS_TOKEN = config.facebook.pageToken;
 const sendMessage = (recipient, payload, cb) => {
     const data = {
         recipient: { id: recipient },
-        message: payload
+        message: {
+          text: payload
+        }
     };
     console.log("sendMessage...: ", data);
     if (!cb) cb = Function.prototype
