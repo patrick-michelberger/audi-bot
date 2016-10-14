@@ -210,6 +210,7 @@ class Bot extends EventEmitter {
                                 if (error) {
                                     console.log('Error sending message: ', error);
                                 } else if (response.body.error) {
+                                    console.log("response: ", response);
                                     const state = response.data.address.state;
                                     // Received an attachment
                                     sendMessage(
