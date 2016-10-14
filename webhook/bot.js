@@ -183,7 +183,6 @@ class Bot extends EventEmitter {
                 let events = entry.messaging
 
                 events.forEach((event) => {
-                    console.log("message: ", event);
                     if (event.recipient.id == FACEBOOK_PAGE_ID) {
                         // Got a new message!
 
@@ -201,6 +200,10 @@ class Bot extends EventEmitter {
                             );
                         } else if (event.message && event.message.text) {
                             // received a text message
+                            sendMessage(
+                                senderId,
+                                'Hallo!'
+                            );
                         } else if (event.payload) {
                             // received payload data
                         } else if (event.delivery) {
