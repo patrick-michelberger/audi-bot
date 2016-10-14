@@ -201,6 +201,8 @@ class Bot extends EventEmitter {
                         if (event.message && event.message.attachments) {
                             const location = event.message.attachments[0].payload.coordinates;
 
+                            console.log("location: ", location);
+
                             request({
                                 url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + location.lat + '&lon=' + location.long,
                                 method: 'GET'
