@@ -199,6 +199,7 @@ class Bot extends EventEmitter {
                         const sessionId = findOrCreateSession(senderId);
 
                         if (event.message && event.message.attachments) {
+                            console.log("location: ", event.message.attachments[0].payload.coordinates);
                             // Received an attachment
                             sendMessage(
                                 senderId,
