@@ -9,6 +9,8 @@ const config = require('../config/environment');
 const router = express.Router();
 const Bot = require('./bot.js');
 
+console.log("config: ", config);
+
 let bot = new Bot({
     token: config.facebook.pageToken,
     verify: config.facebook.verifyToken

@@ -157,11 +157,11 @@ class Bot extends EventEmitter {
         return (req, res) => {
             if (req.method === 'GET') {
                 let query = req.query;
-
+                console.log("query['hub.verify_token']: ", query['hub.verify_token']);
+                console.log("Token: ", token);
                 if (query['hub.verify_token'] === token) {
                     return res.send(query['hub.challenge'])
                 }
-
                 return res.send('Error, wrong validation token')
             }
         }
