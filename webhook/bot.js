@@ -8,7 +8,11 @@ const FACEBOOK_PAGE_ID = config.facebook.pageId;
 const FACEBOOK_ACCESS_TOKEN = config.facebook.pageToken;
 
 const sendMessage = (recipient, payload, cb) => {
-    console.log("sendMessage...");
+    const data = {
+        recipient: { id: recipient },
+        message: payload
+    };
+    console.log("sendMessage...: ", data);
     if (!cb) cb = Function.prototype
     request({
         method: 'POST',
@@ -16,10 +20,7 @@ const sendMessage = (recipient, payload, cb) => {
         qs: {
             access_token: FACEBOOK_ACCESS_TOKEN
         },
-        json: {
-            recipient: { id: recipient },
-            message: payload
-        }
+        json: data
     }, (err, res, body) => {
         if (err) return cb(err)
         if (body.error) return cb(body.error)
