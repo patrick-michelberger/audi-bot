@@ -171,7 +171,10 @@ class Bot extends EventEmitter {
         return (req, res) => {
             var self = this;
 
+            console.log("req: ", req.body);
+
             if (this.verify_token && req.method === 'GET') return this.verify(this.verify_token)(req, res)
+
             if (req.method !== 'POST') return res.end()
 
             let entries = req.body.entry
@@ -180,7 +183,7 @@ class Bot extends EventEmitter {
                 let events = entry.messaging
 
                 events.forEach((event) => {
-
+                    console.log("message: ", event);
                     if (event.recipient.id == FACEBOOK_PAGE_ID) {
                         // Got a new message!
 
