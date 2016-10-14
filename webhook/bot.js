@@ -8,6 +8,7 @@ const FACEBOOK_PAGE_ID = config.facebook.pageId;
 const FACEBOOK_ACCESS_TOKEN = config.facebook.pageToken;
 
 const sendMessage = (recipient, payload, cb) => {
+    console.log("sendMessage...");
     if (!cb) cb = Function.prototype
     request({
         method: 'POST',
@@ -186,6 +187,8 @@ class Bot extends EventEmitter {
                     if (event.recipient.id == FACEBOOK_PAGE_ID) {
                         // Got a new message!
 
+                        console.log("event: ", event);
+
                         // Retrieve the Facebook user ID of the sender
                         const senderId = event.sender.id;
                         // Retrieve the user's current session, or create one if it doesn't exist
@@ -202,7 +205,11 @@ class Bot extends EventEmitter {
                             // received a text message
                             sendMessage(
                                 senderId,
-                                'Hallo!'
+                                'Hallo!',
+                                function(err, body) {
+                                    console.log("err: ", err);
+                                    console.log("body: ", body);
+                                }
                             );
                         } else if (event.payload) {
                             // received payload data
