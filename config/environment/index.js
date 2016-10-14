@@ -25,10 +25,10 @@ var all = {
 
     facebook: {
         clientID: process.env.FACEBOOK_ID || 'id',
-        pageId: process.env.FACEBOOK_PAGE_ID || 'page id',
+        pageId: process.env.FACEBOOK_PAGE_ID || '1759331254328359',
         clientSecret: process.env.FACEBOOK_SECRET || 'secret',
         pageToken: process.env.FACEBOOK_PAGE_TOKEN || 'EAACgKvqQdxcBACFKB5bjDEb4wt5YZBRZCbPL09h32eREJPYhTJKJ1vwniqcpS0I5jb97hBsRI1JDkRvylPDIBGP4qVORtKIE8wC3b1upZBSrv1fmjb2oG1uTXParOtmEhXJUVMVnCkoeeuB73y4msv7xZBWl9Fr8hyPXlvBZBfQZDZD',
-        verifyToken: process.env.FACEBOOK_VERIFY_TOKEN || 'verify token',
+        verifyToken: process.env.FACEBOOK_VERIFY_TOKEN || 'my_super_secret',
         callbackURL: (process.env.DOMAIN || '') + '/auth/facebook/callback'
     },
 

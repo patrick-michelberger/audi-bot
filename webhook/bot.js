@@ -175,8 +175,6 @@ class Bot extends EventEmitter {
         return (req, res) => {
             var self = this;
 
-            console.log("req: ", req.body);
-
             if (this.verify_token && req.method === 'GET') return this.verify(this.verify_token)(req, res)
 
             if (req.method !== 'POST') return res.end()
@@ -200,18 +198,21 @@ class Bot extends EventEmitter {
 
                         if (event.message && event.message.attachments) {
                             const location = event.message.attachments[0].payload.coordinates;
-
-                            console.log("location: ", location);
-
+                            const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + location.lat + ',' + location.long + '&key=AIzaSyAP9LtK43pDNnsUfs4AlOSeryHjpCTbZKw';
                             request({
-                                url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + location.lat + ',' + location.long + '&key=AIzaSyAP9LtK43pDNnsUfs4AlOSeryHjpCTbZKw', 
+                                url: url,
                                 method: 'GET'
                             }, function(error, response, body) {
                                 if (error) {
                                     console.log('Error sending message: ', error);
                                 } else {
-                                    console.log("response: ", response);
-                                    const state = response.data.address.state;
+                                    const data = JSON.parse(body);
+                                    var state = "";
+                                    data.results[0].address_components.forEach(function(component) {
+                                      if(component.types.includes('administrative_area_level_1')) {
+                                        state = component.long_name;
+                                      }
+                                    });
                                     // Received an attachment
                                     sendMessage(
                                         senderId,
@@ -219,6 +220,7 @@ class Bot extends EventEmitter {
                                     );
                                 }
                             });
+
                         } else if (event.message && event.message.text) {
                             // received a text message
                             sendMessage(
