@@ -199,12 +199,23 @@ class Bot extends EventEmitter {
                         const sessionId = findOrCreateSession(senderId);
 
                         if (event.message && event.message.attachments) {
-                            console.log("location: ", event.message.attachments[0].payload.coordinates);
-                            // Received an attachment
-                            sendMessage(
-                                senderId,
-                                'Sorry we can only process text messages for now.'
-                            );
+                            const location = event.message.attachments[0].payload.coordinates;
+
+                            request({
+                                url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + location.lat + '&lon=' + location.long,
+                                method: 'GET'
+                            }, function(error, response, body) {
+                                if (error) {
+                                    console.log('Error sending message: ', error);
+                                } else if (response.body.error) {
+                                    const state = response.data.address.state;
+                                    // Received an attachment
+                                    sendMessage(
+                                        senderId,
+                                        'Your state: ' + state
+                                    );
+                                }
+                            });
                         } else if (event.message && event.message.text) {
                             // received a text message
                             sendMessage(
