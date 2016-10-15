@@ -12,8 +12,8 @@ const Bot = require('./bot.js');
 console.log("config: ", config);
 
 let bot = new Bot({
-    token: config.facebook.pageToken,
-    verify: config.facebook.verifyToken
+  token: config.facebook.pageToken,
+  verify: config.facebook.verifyToken
 });
 
 /**
